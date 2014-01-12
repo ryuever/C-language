@@ -82,11 +82,16 @@ int main(){
 
   char membuff[5]; 
   memset(membuff, 0, 5);                        // init both buffers to nulls
+  printf("The initial value membuff is %s.\n", membuff);
 
-  // function memcpy
+  // function memcpy(void * destination, const void * source, size_t num)
   char memcpy1[20] = "hello";
-  memset(memcpy1, '-', 3);
-  printf("memcpy1 is \"%s\"\n", memcpy1);       // "---lo" 
+  memcpy(memcpy1, "-", 3);
+  printf("memcpy1 is \"%s\"\n", memcpy1);       // "-" %s will terminal when encounter '\0' 
+  printf("memcpy1[1] is %c\n", memcpy1[1]);     // '\0'  
+  printf("memcpy1[2] is %c\n", memcpy1[2]);     // 'm'   arbitary character
+  printf("memcpy1[3] is %c\n", memcpy1[3]);     // 'l'  
+  printf("memcpy1[4] is %c\n", memcpy1[4]);     // 'o'
   printf("\n");
 
   /******************* function in string.h **********************/  
