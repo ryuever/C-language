@@ -132,9 +132,8 @@ int main(){
 
   int temp = 4;
   int * i = &temp;
-  int * j = temp; 
+  /* int * j = temp;   // initialization makes pointer from integer without a cast */
   int * int_arr[3] = {&temp,&temp,&temp};
-
   printf("\n");
 
   printf("=====================================================================\n");
