@@ -1,3 +1,22 @@
+//=============================================== file = struct_union.c =====
+//=  A tutorial program of C pointer                                        =
+//===========================================================================
+//=  Notes:                                                                 =
+//=    1) To make it easier to refer to, I have listed typedef statements   =
+//=       in front of the block it is first referred to.                    =
+//=-------------------------------------------------------------------------=
+//= Example :                                                               =
+//=                                                                         =
+//=-------------------------------------------------------------------------=
+//= Example output                                                          =
+//=-------------------------------------------------------------------------=
+//=  Build: gcc -g pointer.c                                                =
+//=-------------------------------------------------------------------------=
+//=  Author: Liu Youchao                                                    =
+//=-------------------------------------------------------------------------=
+//=  History:                                                               =
+//===========================================================================
+//----- Include files -------------------------------------------------------
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
@@ -77,8 +96,8 @@ void func_03 ( int(* ptr[3])(int a),int b){
 // f5 : is the same with f4;
 // f6 : compared to f3, the returning pointer is to a integer instead of a func.
 //==============================================================================
-typedef int (* f1(int, int (* f2)(int)))(int);  // not error, but not correct. 
-typedef int(* (*f3)(int,int (* f4)(int)))(int);
+typedef int (* f1(int, int (* f2)(int)))(int);  // not error, but is meaningless. 
+typedef int (* (*f3)(int,int (* f4)(int)))(int);
 typedef int (* (* f6)(int,int (* f5)(int)));
 
 typedef int (*mmm) (int);  // return a pointer to a pointer to integer
