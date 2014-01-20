@@ -19,8 +19,8 @@
 //----- Include files -------------------------------------------------------
 #include <stdio.h>         // Needed for printf()
 #include <stdlib.h>    
-#include <string.h>        // Needed for offsetof()
-#include <stddef.h>
+#include <string.h>        // Needed for strcpy() 
+#include <stddef.h>        // Needed for offsetof()
 
 //----- Defines -------------------------------------------------------------
 #define PSIZE 128
