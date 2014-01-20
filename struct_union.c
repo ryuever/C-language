@@ -24,7 +24,7 @@
 
 //----- Defines -------------------------------------------------------------
 #define PSIZE 128
-#define	PLEN        (PSIZE - sizeof(struct people_hdr))   // normal data len 
+#define PLEN        (PSIZE - sizeof(struct people_hdr))   // normal data len 
 #define dtom(x)     ((struct people *) ((long)(x) & ~(PSIZE-1)))
 
 typedef struct people_hdr{
@@ -188,23 +188,23 @@ int main(){
   printf( "data.str : %s\n", data.str);  // C Programming
 
 //==============================================================================
-// Note : Members inside a union share the same memory, The size of union is   = 
+// Note : Members inside a union share the same memory, The size of union is   =
 //        the size of biggest member in union.                                 =
 //                                                                             =
 // take file mbuf.h in 4.4BSD_Lite as an example.                              =
 //------------------------------------------------------mbuf.h-----------------=
 // struct mbuf {                                                               =
-// 	struct	m_hdr m_hdr;                                                       =
-// 	union {                                                                    =
-// 		struct {                                                               =
-// 			struct	pkthdr MH_pkthdr;	/* M_PKTHDR set */                     =
-// 			union {                                                            =
-// 				struct	m_ext MH_ext;	/* M_EXT set */                        =
-// 				char	MH_databuf[MHLEN];                                     =
-// 			} MH_dat;                                                          =
-// 		} MH;                                                                  =
-// 		char	M_databuf[MLEN];		/* !M_PKTHDR, !M_EXT */                =
-// 	} M_dat;                                                                   =
+//   struct    m_hdr m_hdr;                                                    =
+//     union {                                                                 =
+//       struct {                                                              =
+//         struct    pkthdr MH_pkthdr;     /* M_PKTHDR set */                  =
+//         union {                                                             =
+//           struct    m_ext MH_ext;     /* M_EXT set */                       =
+//           char    MH_databuf[MHLEN];                                        =
+//         } MH_dat;                                                           =
+//       } MH;                                                                 =
+//       char   M_databuf[MLEN];           /* !M_PKTHDR, !M_EXT */             =
+//     } M_dat;                                                                =
 // };                                                                          =
 //==============================================================================
   struct people *p;
