@@ -2,7 +2,8 @@
 //=  A tutorial program of compound types (struct, union) in C language     =
 //===========================================================================
 //=  Notes:                                                                 =
-//=    1) .......                                                           =
+//=    1) To make it easier to read, I make the definition of structure     =
+//=       just in front of a block where it is first referred to.           =
 //=-------------------------------------------------------------------------=
 //= Example :                                                               =
 //=                                                                         =
@@ -18,10 +19,12 @@
 //----- Include files -------------------------------------------------------
 #include <stdio.h>         // Needed for printf()
 #include <stdlib.h>    
+#include <string.h>        // Needed for offsetof()
+#include <stddef.h>
 
 //----- Defines -------------------------------------------------------------
 #define PSIZE 128
-#define	PLEN		(PSIZE - sizeof(struct people_hdr))	/* normal data len */
+#define	PLEN        (PSIZE - sizeof(struct people_hdr))   // normal data len 
 #define dtom(x)     ((struct people *) ((long)(x) & ~(PSIZE-1)))
 
 typedef struct people_hdr{
@@ -48,7 +51,6 @@ int main(){
 // when accessing a field of structure.
 // variable : dot operator.    emp1.doj.date
 // pointer  : dot operator  or right-arrow operator
-//            (* )
 //==============================================================================
   printf("=====================================================================\n");
   printf("initialization and accessing of structure field through dot operator.\n");
@@ -140,7 +142,71 @@ int main(){
          sizeof(sizeof(int)));        // 8 is the length corresponding to %zu
   printf("The length of struct people %zu.\n",sizeof(pl));           // 128
   printf("The length of struct people_hdr %zu.\n",sizeof(t.phdr));   // 28
+  printf("\n");
 
+//==============================================================================
+//                              union
+// 1) : Same memory location can be used to store multiple types of data. So the 
+//      element are all started from offset 0;
+// 2) : The memory occupied by a union will be large enough to hold the largest 
+//      member of the union.
+// 3) : It is not allowed to access more than 1 member at a time. So the first 
+//      group  of data.i and data.f is corrupted. Because the same memory is 
+//      assigned by the last statment strycpy
+// 4) : You can use any built-in or user defined data types inside a union.
+//==============================================================================  
+  printf("=====================================================================\n");
+  printf("The sizeof union or an element of union.\n");
+  printf("=====================================================================\n");
+  union Data{
+    int i;
+    float f;
+    char  str[20];
+  };
+  union Data data;        
+  printf("Memory size occupied by data : %zu\n", sizeof(data));         // 20
+  printf("Memory size occupied by element : %zu\n", sizeof(data.i));    // 4
+  printf("offset of second element f is %zu\n",offsetof(union Data,f)); // 0 
+  printf("\n");
+
+  printf("=====================================================================\n");
+  printf("Accessing Union Members.\n");
+  printf("=====================================================================\n");
+  data.i = 10;
+  data.f = 220.5;
+  strcpy( data.str, "C Programming");
+  
+  printf( "data.i : %d\n", data.i);      // 1917853763
+  printf( "data.f : %f\n", data.f);      // 4122360580327794860452759994368.000000
+  printf( "data.str : %s\n", data.str);  // C Programming
+
+  data.i = 10;
+  printf( "data.i : %d\n", data.i);      // 10
+  data.f = 220.5;
+  printf( "data.f : %f\n", data.f);      // 220.500000
+  strcpy( data.str, "C Programming");
+  printf( "data.str : %s\n", data.str);  // C Programming
+
+//==============================================================================
+// Note : Members inside a union share the same memory, The size of union is   = 
+//        the size of biggest member in union.                                 =
+//                                                                             =
+// take file mbuf.h in 4.4BSD_Lite as an example.                              =
+//------------------------------------------------------mbuf.h-----------------=
+// struct mbuf {                                                               =
+// 	struct	m_hdr m_hdr;                                                       =
+// 	union {                                                                    =
+// 		struct {                                                               =
+// 			struct	pkthdr MH_pkthdr;	/* M_PKTHDR set */                     =
+// 			union {                                                            =
+// 				struct	m_ext MH_ext;	/* M_EXT set */                        =
+// 				char	MH_databuf[MHLEN];                                     =
+// 			} MH_dat;                                                          =
+// 		} MH;                                                                  =
+// 		char	M_databuf[MLEN];		/* !M_PKTHDR, !M_EXT */                =
+// 	} M_dat;                                                                   =
+// };                                                                          =
+//==============================================================================
   struct people *p;
   p = dtom(phdr);
 
