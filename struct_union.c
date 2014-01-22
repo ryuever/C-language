@@ -98,9 +98,9 @@ int main(){
   printf("Dot operator to access nested field age :%d\n",age);
   printf("\n");
 
-  printf("=====================================================================\n");
+  printf("==================================================================\n");
   printf("Assignment to structure field.\n");
-  printf("=====================================================================\n");
+  printf("==================================================================\n");
   printf("original value : %d.\n",liu.id);
   liu.id = 23;
   printf("After change   : %d.\n",liu.id);
