@@ -35,6 +35,7 @@ typedef struct people_hdr{
 
 struct people{
   people_hdr phdr;
+#define p_age phdr.age
   char profile[100];
 } pl;                             // declare and define a structure variable pl 
 
@@ -93,7 +94,7 @@ int main(){
          world2.binson[0]->center[0],world2.binson[0]->center[1]);
 
   struct people tt = {{23,"liu", 3},"love"};
-  int age = tt.phdr.age;
+  int age = tt.p_age;
   printf("Dot operator to access nested field age :%d\n",age);
   printf("\n");
 
