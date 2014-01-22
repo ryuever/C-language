@@ -1,3 +1,22 @@
+//=============================================== file = function.c =============
+//=  A tutorial program of compound types (struct, union) in C language         =
+//===============================================================================
+//=  Notes:                                                                     =
+//=    1) To make it easier to read, I make the definition of structure         =
+//=       just in front of a block where it is first referred to.               =
+//=-----------------------------------------------------------------------------=
+//= Example :                                                                   =
+//=                                                                             =
+//=-----------------------------------------------------------------------------=
+//= Example output                                                              =
+//=-----------------------------------------------------------------------------=
+//=  Build: gcc -g function.c                                                   =
+//=-----------------------------------------------------------------------------=
+//=  Author: Liu Youchao                                                        =
+//=-----------------------------------------------------------------------------=
+//=  History:                                                                   =
+//===============================================================================
+//----- Include files -----------------------------------------------------------
 #include <stdio.h>
 #include <string.h>
 #include <stddef.h>
@@ -8,11 +27,21 @@ struct student{
 }tt = {1,378};
 
 int main(){
+//===============================================================================
+//                      functions in stddef.h
+//===============================================================================
+  printf("==================================================================\n");
+  printf("offsetof(type, member).\n");
+  printf("==================================================================\n");
+  printf("offsetof(struct student,age) is %zu.\n", offsetof(struct student,age));
+  printf("\n");
 
-  // funtion sizeof 
+  printf("==================================================================\n");
+  printf("sizeof unary-expression.\n");
+  printf("==================================================================\n");
   int sizeof_int[10];
   char char_arr[3];
-  printf("The length of a character is %zu, and the length of a interger is %zu\n", 
+  printf("The length of a char and int is %zu and %zu,respectively.\n", 
          sizeof(char), sizeof (int));
   printf("The length of unsigned int is %zu.\n", sizeof(unsigned int));
   printf("The length of size_t is %zu. \n", sizeof(size_t));
@@ -21,12 +50,13 @@ int main(){
   printf("The length of char array is %zu.\n", sizeof(char_arr));
   printf("The length of struct student is %zu\n", sizeof (struct student));
 
-  // applied to the name of a static array.The result will be the bytes of the whole array
+  // applied to the name of a static array.The result will be the bytes of the 
+  // whole array
   char *char_pointer_arr1[] = {
     "Liu", "Li" , "Du"
   };
   printf("The length of char * array %zu.\n",
-         sizeof(char_pointer_arr1));      // 24. because the element is a pointer
+         sizeof(char_pointer_arr1));    // 24. because the element is a pointer
 
   // be used to calculate the number of elements in array.
   printf("Number of elements in char * array %zu.\n",
@@ -53,20 +83,29 @@ int main(){
   printf("The offsetof(struct student, age) is %zu.\n", 
          offsetof(struct MixedData, Data4));    // 8
   printf("\n");
-  /******************* function in stdio.h **********************/
+//===============================================================================
+//                          functions in stdio.h  
+//===============================================================================
 
 
-  /******************* function in string.h **********************/
-  // function strcat
+
+//===============================================================================
+//                          functions in string.h  
+//===============================================================================
+  printf("==================================================================\n");
+  printf("char * strcat ( char * dest, const char * src ).\n");
+  printf("==================================================================\n");
   char strcat1[80];
   strcpy (strcat1,"these ");
   strcat (strcat1,"strings ");
   strcat (strcat1,"are ");
   strcat (strcat1,"concatenated.");
-  printf("strcat1 is \"%s\"\n", strcat1);         // "these strings are concatenated."
+  printf("strcat1 is \"%s\"\n", strcat1);   // "these strings are concatenated."
   printf("\n");
 
-  // function strncat 
+  printf("==================================================================\n");
+  printf("char * strncat ( char * dest, const char * srce, size_t num ).\n");
+  printf("==================================================================\n");
   char strncat1[20];
   char strncat2[20];
   strcpy (strncat1,"To be ");
@@ -75,16 +114,20 @@ int main(){
   printf("strncat1 is \"%s\"\n", strncat1);       // "To be or not"
   printf("\n");
 
-  // function strcpy
+  printf("==================================================================\n");
+  printf("char * strcpy ( char * dest, const char * src ).\n");
+  printf("==================================================================\n");
   char strcpy1[20];
   strcpy(strcpy1, "hello world!");
   printf("strcpy1 is \"%s\"\n", strcpy1);         // "hello world!"
   printf("\n");
 
-  // function memset
-  char memset1[] = "almost every programmer should know memset!";
+  printf("==================================================================\n");
+  printf("void * memset ( void * ptr, int value, size_t num ).\n");
+  printf("==================================================================\n");
+  char memset1[] = "almost every programmer!";
   memset(memset1,'-',6);
-  printf("memset1 is \"%s\"\n", memset1);        // "------ every programmer should know memset!"
+  printf("memset1 is \"%s\"\n", memset1);        // "------ every programmer!"
 
   char memset2[20] = "hello";
   memset(memset2, '-', 3);
@@ -93,8 +136,11 @@ int main(){
   char membuff[5]; 
   memset(membuff, 0, 5);                        // init both buffers to nulls
   printf("The initial value membuff is %s.\n", membuff);
-
-  // function memcpy(void * destination, const void * source, size_t num)
+  printf("\n");
+  
+  printf("==================================================================\n");
+  printf("void * memcpy ( void * dest, const void * src, size_t num ).\n");
+  printf("==================================================================\n");
   char memcpy1[20] = "hello";
   memcpy(memcpy1, "-", 3);
   printf("memcpy1 is \"%s\"\n", memcpy1);       // "-" %s will terminal when encounter '\0' 
@@ -103,12 +149,10 @@ int main(){
   printf("memcpy1[3] is %c\n", memcpy1[3]);     // 'l'  
   printf("memcpy1[4] is %c\n", memcpy1[4]);     // 'o'
   printf("\n");
+  
 
-  /******************* function in stddef.h **********************/  
-  // offsetof(type, member)
-  printf("offsetof(struct student,age) is %zu.\n", offsetof(struct student,age));
-  printf("\n");
-
-  /************************* The end ******************************/
+//===============================================================================
+//                            The end
+//===============================================================================
   return 0;
 }
