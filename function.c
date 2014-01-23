@@ -93,49 +93,53 @@ int main(){
 //                          functions in string.h  
 //===============================================================================
   printf("==================================================================\n");
+  printf("char * strcpy ( char * dest, const char * src ).\n");
+  printf("==================================================================\n");
+  char strcpy1[3]="12";
+  printf("The length of strcpy1 (before strcpy) : %zu.\n",strlen(strcpy1));
+  printf("The length of strcpy1 (before strcpy) : %zu.\n",sizeof(strcpy1));
+  strcpy(strcpy1, "hello world!");
+  printf("strcpy1 is assigned with value : %s.\n", strcpy1);   // "hello world!"
+  printf("The length of strcpy1 (after strcpy)  : %zu.\n",strlen(strcpy1));
+  printf("\n");
+
+  printf("==================================================================\n");
   printf("char * strcat ( char * dest, const char * src ).\n");
   printf("==================================================================\n");
   char strcat1[80];
-  strcpy (strcat1,"these ");
-  strcat (strcat1,"strings ");
-  strcat (strcat1,"are ");
-  strcat (strcat1,"concatenated.");
-  printf("strcat1 is \"%s\"\n", strcat1);   // "these strings are concatenated."
-  printf("\n");
+  strcpy (strcat1,"hello");
+  printf("dest before strcat : %s.\n",strcat1);
+  strcat (strcat1," world!");
+  printf("dest after strcat  : %s.\n",strcat1);
+  printf("\n");  
 
   printf("==================================================================\n");
   printf("char * strncat ( char * dest, const char * srce, size_t num ).\n");
   printf("==================================================================\n");
-  char strncat1[20];
+  char strncat1[4];
   char strncat2[20];
   strcpy (strncat1,"To be ");
   strcpy (strncat2,"or not to be");
-  strncat (strncat1, strncat2, 6);
-  printf("strncat1 is \"%s\"\n", strncat1);       // "To be or not"
-  printf("\n");
-
-  printf("==================================================================\n");
-  printf("char * strcpy ( char * dest, const char * src ).\n");
-  printf("==================================================================\n");
-  char strcpy1[20];
-  strcpy(strcpy1, "hello world!");
-  printf("strcpy1 is \"%s\"\n", strcpy1);         // "hello world!"
+  printf("strncat1 is : %s.\n",strncat1);
+  printf("strncat2 is : %s.\n",strncat2);
+  printf("The length of strncat1 (before strcpy) : %zu.\n",strlen(strncat1));
+  strncat (strncat1, strncat2, 5);
+  printf("The length of strncat1 (after strcpy)  : %zu.\n",strlen(strncat1));
+  printf("Appending 6 chars to strncat1 : %s.\n", strncat1);  // "To be or not"
   printf("\n");
 
   printf("==================================================================\n");
   printf("void * memset ( void * ptr, int value, size_t num ).\n");
   printf("==================================================================\n");
   char memset1[] = "almost every programmer!";
+  printf("memset1 before memset : %s.\n", memset1);  // "almost every programmer!"
   memset(memset1,'-',6);
-  printf("memset1 is \"%s\"\n", memset1);        // "------ every programmer!"
-
-  char memset2[20] = "hello";
-  memset(memset2, '-', 3);
-  printf("memset2 is \"%s\"\n", memset2);        // "---lo"
+  printf("memset1 after memset : %s.\n", memset1);   // "------ every programmer!"
 
   char membuff[5]; 
-  memset(membuff, 0, 5);                        // init both buffers to nulls
+  memset(membuff, '\0', 5);                        // initilize buffers to nulls
   printf("The initial value membuff is %s.\n", membuff);
+  printf("membuff[0] is %x.\n", *membuff);
   printf("\n");
   
   printf("==================================================================\n");
@@ -143,14 +147,13 @@ int main(){
   printf("==================================================================\n");
   char memcpy1[20] = "hello";
   memcpy(memcpy1, "-", 3);
-  printf("memcpy1 is \"%s\"\n", memcpy1);       // "-" %s will terminal when encounter '\0' 
-  printf("memcpy1[1] is %c\n", memcpy1[1]);     // '\0'  
-  printf("memcpy1[2] is %c\n", memcpy1[2]);     // 'm'   arbitary character
-  printf("memcpy1[3] is %c\n", memcpy1[3]);     // 'l'  
-  printf("memcpy1[4] is %c\n", memcpy1[4]);     // 'o'
+  printf("memcpy1    : %s\n", memcpy1);   // %s will terminal when encounter '\0' 
+  printf("memcpy1[1] : %x\n", memcpy1[1]);     // '\0'  
+  printf("memcpy1[2] : %c\n", memcpy1[2]);     // 'm'   arbitary character
+  printf("memcpy1[3] : %c\n", memcpy1[3]);     // 'l'  
+  printf("memcpy1[4] : %c\n", memcpy1[4]);     // 'o'
   printf("\n");
   
-
 //===============================================================================
 //                            The end
 //===============================================================================
