@@ -10,6 +10,7 @@ int main(){
       printf("The value of j(in if stat) is : %d.\n",j);
       printf("--------go out from if statement -------\n\n");
       break;
+      printf("------after break-----");    // will not be excuted.
     }
     // 一旦执行上面的break, 下面这句话就不再执行了
     printf("The value of j(in for loop) is : %d.\n",j);
