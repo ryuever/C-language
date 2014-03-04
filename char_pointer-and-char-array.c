@@ -130,6 +130,41 @@ int main(){
   printf("signed_i2 is : %d\n", signed_i2);
 
 //==============================================================================
+//                  compare signed char to unsigned char
+//==============================================================================  
+  signed char c4 = 0x31;
+  printf("The length of signed char c4 is %zu\n",sizeof(c4));
+  unsigned char c5 = 0x31;
+  if(c4 == c5)
+    printf("signed char c4(%x) is equal to unsigned char c5(%x)\n", c4,c5);
+  else 
+    printf("signed char c4(%x) is not equal to unsigned char c5(%x)\n", c4,c5);
+
+  signed char c6 = 0xf3;
+  unsigned char c7 = 0xf3;
+  if(c6 == c7)
+    printf("signed char c6(%x) is equal to unsigned char c7(%x)\n", c6,c7);
+  else 
+    printf("signed char c6(%x -> %d) is not equal to unsigned char c7(%x ->%d)\n", c6,c6,c7,c7);
+
+//==============================================================================
+//              extend char to int 
+// unsigned char --> int : 0xff --> 0x000000ff
+// signed char   --> int : oxff --> 0xffffffff
+// check the bit value through gdb command
+//==============================================================================
+
+  unsigned char c8 = 0xFF;
+  signed char c9 = 0xFF;
+  printf("Decimal and Hex format of unsigned char c8 is %d, %x.\n",c8,c8);
+  printf("Decimal and Hex format of signed char c9 is %d, %x.\n",c9,c9);
+  
+  int t1 = c8;
+  int t2 = c9;
+  printf("Decimal and Hex format of unsigned char t1 is %d, %x.\n",t1,t1);
+  printf("Decimal and Hex format of signed char t2 is %d, %x.\n",t2,t2);
+
+//==============================================================================
 //                       The end
 //==============================================================================  
   return 0;
