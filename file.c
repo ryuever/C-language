@@ -85,8 +85,30 @@ int main(){
   while ((c3 = fgetc(fp3)) != EOF){
     printf ("read c2 = '%c'\n", c);
   }
-
+  printf("\n");
   fclose(fp);
+
+//===============================================================================
+//     int feof ( FILE * stream ); 
+// Check end-of-file indicator : Checks whether the end-of-File indicator 
+// associated with stream is set, returning a value different from zero if it is.
+//===============================================================================
+  FILE * pFile;
+  int n = 0;
+  pFile = fopen("myfile.txt","a+");
+  if (pFile==NULL) 
+    perror ("Error opening file");
+  else {
+    while (fgetc(pFile) != EOF) {
+      ++n;
+    }
+    if (feof(pFile)) {
+      puts ("End-of-File reached.");
+      printf ("Total number of bytes read: %d\n", n);
+    }
+    else puts ("End-of-File was not reached.");
+    fclose (pFile);
+  }
 
 //===============================================================================
 //                             The End
