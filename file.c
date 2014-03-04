@@ -110,7 +110,26 @@ int main(){
     fclose (pFile);
   }
   printf("\n");
+
+//===============================================================================
+// fputc, fputs, putc, putchar, puts - output of characters and strings
+//===============================================================================
+  FILE *out_file = fopen("out_file.txt","w");
+  fputc(0x34,out_file);
   
+  fputs("hello world",out_file);
+  
+  int out_i;
+  for(out_i=0;out_i<10;out_i++){
+    putc(65+out_i,out_file);
+  }
+
+  printf("Output a char through function putchar : ");
+  putchar('\x63');
+  putchar(0x0a);
+
+  puts("function puts(), automatically, appending a newline character.");
+  printf("\n");
 //===============================================================================
 //       fgetpos, fseek, fsetpos, ftell, rewind - reposition a stream
 //===============================================================================
