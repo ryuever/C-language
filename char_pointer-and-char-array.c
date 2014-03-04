@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 int main(){
   char str1[] = "hello";
   char str2[] = "hello";
@@ -35,7 +36,9 @@ int main(){
   printf("Print out the decimal %d value of char %c.\n\n", str1[1],str1[1]);
   // printf("%s\n", str1[1]);  %s expects argument of type char* but argument have type of int.
 
-  /*********************** The length of char * and char array **********************/
+//==============================================================================
+//                     The length of char * and char array
+//==============================================================================
   char *p = "hello";
   char q[] = "hello";         // The null terminator will be included as well.
   
@@ -47,7 +50,9 @@ int main(){
   printf("%zu\n", strlen(p)); // => 5
   printf("%zu\n\n", strlen(q)); // => 5
 
-  /***********************   assign a value to char array   *************************/
+//==============================================================================
+//                     assign a value to char array
+//==============================================================================
   // 1. initial a char array with a string
   char init_arr[4] ="name";
   printf("The value of char array init_arr is %s.\n", init_arr);
@@ -55,15 +60,18 @@ int main(){
   char init_str1[4] = "book";
   char init_str2[4] = {'l','i','k' };
 
-  printf("Two ways to initial a char array %s and %s.\n", init_str1,init_str2);     // book & lik
+  printf("Two ways to initial a char array %s and %s.\n", 
+         init_str1,init_str2);     // book & lik
   
   // 2. The assignment of char array : strcpy function or for loop. 
   char assign_arr1[4];
   char assign_arr2[4];
   strcpy(assign_arr1,init_str1);    // initial with other char array
   strcpy(assign_arr2,"face");       // initial with a string
-  printf("assigned char array %s through strcpy function with other char array.\n", assign_arr1);   // book
-  printf("assigned char array %s through strcpy function with a string.\n", assign_arr2);           // face
+  printf("assigned char array %s through strcpy function with other char array.\n", 
+         assign_arr1);   // book
+  printf("assigned char array %s through strcpy function with a string.\n", 
+         assign_arr2);           // face
 
   char assign_arr3[4];
   long unsigned i;
@@ -73,19 +81,33 @@ int main(){
   }
   printf("assigned char array %s through for loop.\n\n",assign_arr3);      // mmmm
 
-  /*************   declarate and define the array of char pointer  *****************/
+//==============================================================================
+//                    declarate and define the array of char pointer 
+//==============================================================================
   char *char_pointer_arr1[] = {
     "Liu", "Li" , "Du"
   };
-  printf("The length of char * array %zu.\n",sizeof(char_pointer_arr1));   // 24. because the element is a pointer
-  printf("Number of elements in char * array %zu.\n",sizeof(char_pointer_arr1)/sizeof(char_pointer_arr1[1]));   // 3
+  // 24. because the element is a pointer
+  printf("The length of char * array %zu.\n",sizeof(char_pointer_arr1));   
+  printf("Number of elements in char * array %zu.\n",
+         sizeof(char_pointer_arr1)/sizeof(char_pointer_arr1[1]));   // 3
   
   for(i =0; i < sizeof(char_pointer_arr1)/sizeof(char_pointer_arr1[1]); i++) {
     printf("The %zust element of char_pointer_arr1 is %s.\n",i,char_pointer_arr1[i]);
   }
   printf("\n");
 
-
-  /************************* The end ******** **********************/
+//==============================================================================
+//                  assignment to char pointer
+//==============================================================================  
+  char * c = "hello";
+  char c2 = 'a';
+  char *c3 = &c2;
+  printf("c is : %s\n",c);
+  printf("c3 is :%c\n",*c3);
+  printf("c[1] is :%c\n",*c);
+//==============================================================================
+//                       The end
+//==============================================================================  
   return 0;
 }
