@@ -62,7 +62,25 @@ int main()
   printf("membuff[0] is %x.\n", membuff[6]);
 
   printf("\n");
+//===============================================================================
+//                              EOF trap
+// $  gcc -g -fsigned-char traps.c      // stop at the third char oxff
+// $  gcc -g -funsigned-char traps.c    // go into loop
+//===============================================================================
+  char c;
+  FILE *fp = fopen("test.txt","r+");
+  fputs("\x35\x38\xff\x32\x33",fp);
+  fclose(fp);
 
+  FILE *fp2 = fopen("test.txt","r");
+  while ((c = fgetc(fp2)) != EOF){
+    printf ("read c2 = '%c'\n", c);
+  }
 
+  fclose(fp);
+
+//===============================================================================
+//                             The End
+//===============================================================================
   return 0;
 }
