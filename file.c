@@ -112,6 +112,30 @@ int main(){
   printf("\n");
 
 //===============================================================================
+// fgetc,  fgets,  getc,  getchar,  gets, ungetc - input of characters and strings
+//===============================================================================
+  FILE * in_fp = fopen("test.txt","r");
+  
+  int in_c;
+  in_c = fgetc(in_fp);
+  printf("in_c is %d\n",in_c);
+
+  char in_str[5];
+  fgets(in_str,5,in_fp);              // read at most 4 chars from stream
+  printf("in_str is %s\n",in_str);
+
+  in_c = getc(in_fp);
+  printf("in_c through getc function : %d\n",in_c);
+
+  in_c = getchar();
+  printf("in_c from stdin : %d\n",in_c);
+
+  // gets(in_str) is deprecated
+  /* gets(in_str); */
+  /* printf("in_str from stdin : %s\n",in_str); */
+
+  printf("\n");
+//===============================================================================
 // fputc, fputs, putc, putchar, puts - output of characters and strings
 //===============================================================================
   FILE *out_file = fopen("out_file.txt","w");
