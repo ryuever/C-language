@@ -89,7 +89,7 @@ int main(){
   fclose(fp);
 
 //===============================================================================
-//     int feof ( FILE * stream ); 
+//                         int feof ( FILE * stream ); 
 // Check end-of-file indicator : Checks whether the end-of-File indicator 
 // associated with stream is set, returning a value different from zero if it is.
 //===============================================================================
@@ -109,7 +109,41 @@ int main(){
     else puts ("End-of-File was not reached.");
     fclose (pFile);
   }
+  printf("\n");
+  
+//===============================================================================
+//       fgetpos, fseek, fsetpos, ftell, rewind - reposition a stream
+//===============================================================================
+  FILE *pos_file = fopen("pos_file.txt","w");
+  fputs("hello world.",pos_file);
+  
+  fseek(pos_file,2,SEEK_SET);
+  fputs("2",pos_file);
 
+  fseek(pos_file,0L,SEEK_SET);
+  fputs("1",pos_file);
+
+  //  rewind(pos_file);
+
+  long pos1 = ftell(pos_file);
+  printf("long pos is %zu\n",pos1);
+  
+  fclose(pos_file);
+
+  FILE *pos_file2 = fopen("pos_file.txt","r");
+  fpos_t pos2;
+  fgetpos(pos_file2,&pos2);
+  
+  int i;
+  char pos_c2;
+  for(i=0;i<3;i++){
+    pos_c2 = fgetc(pos_file2);
+    printf("The %dst times  pos_c : %c\n",i,pos_c2);
+    fsetpos(pos_file,&pos2);  // due to this step, the three times pos_c2 is the same 
+  }
+
+  fclose(pos_file);
+  printf("\n");
 //===============================================================================
 //                             The End
 //===============================================================================
