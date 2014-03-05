@@ -3,6 +3,8 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdlib.h>
+#include <errno.h>
+
 
 int main(){
 //==============================================================================
@@ -39,7 +41,15 @@ int main(){
   // smaller characters left in file. so it just return the number char is really read.
   char buf2[30];
   memset(buf2,'\0',30);
-  int nread2 = read(filedesc2,buf2,40);
+  int nread2;
+
+  // re-read file if errno is EINTR
+  while((nread2 = read(filedesc2,buf2,40)) < 0){
+    if(errno == EINTR){
+      printf("restart the read of file");
+    }
+    return (-1);
+  }
   printf("buf2 is : %s",buf2); 
   printf("nread2 is : %d\n",nread2);
 
@@ -73,8 +83,8 @@ int main(){
   fclose(fp);
 //===============================================================================
 //                              EOF trap
-// $  gcc -g -fsigned-char traps.c      // stop at the third char oxff
-// $  gcc -g -funsigned-char traps.c    // go into loop
+// $  gcc -g -fsigned-char file.c      // stop at the third char oxff
+// $  gcc -g -funsigned-char file.c    // go into loop
 //===============================================================================
   FILE *fp2 = fopen("test.txt","r+");
   fputs("\x35\x38\xff\x32\x33",fp);
@@ -134,7 +144,53 @@ int main(){
   /* gets(in_str); */
   /* printf("in_str from stdin : %s\n",in_str); */
 
+  fclose(in_fp);
   printf("\n");
+
+//===============================================================================
+//               getline, getdelim - delimited string input
+//===============================================================================
+  FILE *getline_fp;
+  char *line = NULL;
+  size_t len = 0;
+  ssize_t read;
+  
+  getline_fp = fopen("test.txt", "r");
+  if (getline_fp == NULL)
+    exit(EXIT_FAILURE);
+  
+  while ((read = getline(&line, &len, getline_fp)) != -1) {
+    printf("Retrieved line of length %zu :\n", read);
+    printf("%s", line);
+  }
+  
+  free(line);
+  fclose(getline_fp);
+
+  char * line2 = malloc(5);
+  FILE *getline_fp2;
+  size_t len2 = 4;
+  ssize_t read2;
+  
+  getline_fp2 = fopen("test.txt", "r");
+  if (getline_fp2 == NULL)
+    exit(EXIT_FAILURE);
+  
+  while ((read2 = getline(&line2, &len2, getline_fp2)) != -1) {
+    printf("Retrieved line2 of length %zu :\n", read2);
+    printf("%s", line2);
+  }
+  
+  // check whether file end is reached.
+  if(feof(getline_fp2)){
+    printf("Reach the file end.\n");
+  }else{
+    printf("Errno is %d.\n", errno);
+  }
+  
+  free(line2);
+  printf("\n");
+
 //===============================================================================
 // fputc, fputs, putc, putchar, puts - output of characters and strings
 //===============================================================================
@@ -182,11 +238,12 @@ int main(){
   for(i=0;i<3;i++){
     pos_c2 = fgetc(pos_file2);
     printf("The %dst times  pos_c : %c\n",i,pos_c2);
-    fsetpos(pos_file,&pos2);  // due to this step, the three times pos_c2 is the same 
+    fsetpos(pos_file2,&pos2);  // due to this step, the three times pos_c2 is the same 
   }
 
-  fclose(pos_file);
+  fclose(pos_file2);
   printf("\n");
+
 //===============================================================================
 //                             The End
 //===============================================================================
