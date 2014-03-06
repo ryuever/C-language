@@ -30,59 +30,6 @@ int main(){
 //===============================================================================
 //                      functions in stddef.h
 //===============================================================================
-  printf("==================================================================\n");
-  printf("offsetof(type, member).\n");
-  printf("==================================================================\n");
-  printf("offsetof(struct student,age) is %zu.\n", offsetof(struct student,age));
-  printf("\n");
-
-  printf("==================================================================\n");
-  printf("sizeof unary-expression.\n");
-  printf("==================================================================\n");
-  int sizeof_int[10];
-  char char_arr[3];
-  printf("The length of a char and int is %zu and %zu,respectively.\n", 
-         sizeof(char), sizeof (int));
-  printf("The length of unsigned int is %zu.\n", sizeof(unsigned int));
-  printf("The length of size_t is %zu. \n", sizeof(size_t));
-  printf("The length of ssize_t is %zu. \n", sizeof(ssize_t));
-  printf("The length of array sizeof_int is %zu.\n", sizeof(sizeof_int));
-  printf("The length of char array is %zu.\n", sizeof(char_arr));
-  printf("The length of struct student is %zu\n", sizeof (struct student));
-
-  // applied to the name of a static array.The result will be the bytes of the 
-  // whole array
-  char *char_pointer_arr1[] = {
-    "Liu", "Li" , "Du"
-  };
-  printf("The length of char * array %zu.\n",
-         sizeof(char_pointer_arr1));    // 24. because the element is a pointer
-
-  // be used to calculate the number of elements in array.
-  printf("Number of elements in char * array %zu.\n",
-         sizeof(char_pointer_arr1)/sizeof(char_pointer_arr1[1]));   // 3
-  printf("\n");
-
-  // sizeof struct or union  -- pay attention to structure padding
-  printf("The length of struct student is %zu.\n", 
-         sizeof(struct student));         // 8 
-  printf("The offsetof(struct student, age) is %zu.\n", 
-         offsetof(struct student, age));  // 4,padding is 3; 
-  
-  struct MixedData
-  {
-    char Data1;
-    short Data2;
-    int Data3;
-    char Data4;
-  };
-  printf("The length of struct student is %zu.\n", 
-         sizeof(struct MixedData));             // 12 
-  printf("The offsetof(struct student, age) is %zu.\n", 
-         offsetof(struct MixedData, Data2));    // 2, padding for Data1 is 1
-  printf("The offsetof(struct student, age) is %zu.\n", 
-         offsetof(struct MixedData, Data4));    // 8
-  printf("\n");
 //===============================================================================
 //                          functions in stdio.h  
 //===============================================================================
@@ -161,8 +108,49 @@ int main(){
   char bcopy2[] = "almost every programmer!";
   bcopy(bcopy2,bcopy1,6);
   printf("bcopy : %s.\n",bcopy1);
+  printf("\n"); 
+
+  printf("==================================================================\n");
+  printf("int strcmp(const char *s1, const char *s2);\n");
+  printf("int strncmp(const char *s1, const char *s2, size_t n);\n");
+  printf("==================================================================\n");
+
+  /* char *s1 = "\012"; */
+  /* char *s2 = "\n\012"; */
+
+  char *s1 = "\012";
+  char *s2 = "\n\012";
+
+  if(strcmp(s1,s2) < 0){
+    printf("s1(%s) is less than s2(%s).\n",s1,s2);
+  }else if(strcmp(s1,s2) > 0){
+    printf("s1(%s) is greater than s2(%s).\n",s1,s2);
+  }else {
+    printf("s1(%s) is equal to s2(%s).\n",s1,s2);
+  }
+  
+  if(strncmp(s1,s2,1) < 0){
+    printf("s1(%s) is less than s2(%s).\n",s1,s2);
+  }else if(strncmp(s1,s2,1) > 0){
+    printf("s1(%s) is greater than s2(%s).\n",s1,s2);
+  }else {
+    printf("s1(%s) is equal to s2(%s).\n",s1,s2);
+  }
+
   printf("\n");
 
+
+
+  /* char *line2 = malloc(30); */
+  /* char *test = malloc(23); */
+  /* memset(test,'\0',13); */
+  /* char *t = "hello"; */
+  /* printf("The size of line2 : %zu\n",strlen(test));   */
+
+
+  char *test3;
+  strcpy(test3,"hello");
+  printf("test3 is %s.\n",test3);
 //===============================================================================
 //                            The end
 //===============================================================================
