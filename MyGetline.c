@@ -1,3 +1,10 @@
+//==============================================================================
+// I have customized source file to accommodate to the function of checking why
+// char ** be a argument instead of using char *
+// The change is : 
+//                1. replace **lineptr with *lineptr.
+//                2. add main() for testing
+//==============================================================================
 /* getline.c -- Replacement for GNU C library function getline
 
 Copyright (C) 1993 Free Software Foundation, Inc.
@@ -23,12 +30,13 @@ General Public License for more details.  */
 #include <assert.h>
 #include <errno.h>
 
-#if STDC_HEADERS
+// #if STDC_HEADERS
 #include <stdlib.h>
-#else
-char *malloc (), *realloc ();
-#endif
+// #else
+// char *malloc (), *realloc ();
+// #endif
 
+#include <string.h>
 /* Always add at least this many bytes when extending the buffer.  */
 #define MIN_CHUNK 64
 
@@ -42,35 +50,35 @@ char *malloc (), *realloc ();
 
 int
 getstr (lineptr, n, stream, terminator, offset)
-     char **lineptr;
-     size_t *n;
+     char *lineptr;
+     size_t n;
      FILE *stream;
      char terminator;
      int offset;
 {
-  int nchars_avail;		/* Allocated but unused chars in *LINEPTR.  */
-  char *read_pos;		/* Where we're reading into *LINEPTR. */
+  int nchars_avail;		/* Allocated but unused chars in LINEPTR.  */
+  char *read_pos;		/* Where we're reading into LINEPTR. */
   int ret;
 
-  if (!lineptr || !n || !stream)
-    {
-      errno = EINVAL;
-      return -1;
-    }
+  /* if (!lineptr || !n || !stream) */
+  /*   { */
+  /*     errno = EINVAL; */
+  /*     return -1; */
+  /*   } */
 
-  if (!*lineptr)
+  if (!lineptr)
     {
-      *n = MIN_CHUNK;
-      *lineptr = malloc (*n);
-      if (!*lineptr)
+      n = MIN_CHUNK;
+      lineptr = malloc(n);
+      if (!lineptr)
 	{
 	  errno = ENOMEM;
 	  return -1;
 	}
     }
 
-  nchars_avail = *n - offset;
-  read_pos = *lineptr + offset;
+  nchars_avail = n - offset;           // numbers of bytes left to be available.
+  read_pos = lineptr + offset;         // about to receive the next char..
 
   for (;;)
     {
@@ -83,23 +91,25 @@ getstr (lineptr, n, stream, terminator, offset)
 	 always (unless we get an error while reading the first char)
 	 NUL-terminate the line buffer.  */
 
-      assert((*lineptr + *n) == (read_pos + nchars_avail));
+      assert((lineptr + n) == (read_pos + nchars_avail));
+      // for this step is just to ensure there is one byte left to restore
+      // '\0' as a string terminal indicator.
       if (nchars_avail < 2)
 	{
-	  if (*n > MIN_CHUNK)
-	    *n *= 2;
+	  if (n > MIN_CHUNK)
+	    n *= 2;
 	  else
-	    *n += MIN_CHUNK;
+	    n += MIN_CHUNK;
 
-	  nchars_avail = *n + *lineptr - read_pos;
-	  *lineptr = realloc (*lineptr, *n);
-	  if (!*lineptr)
+	  nchars_avail = n + lineptr - read_pos;
+	  lineptr = realloc (lineptr, n);
+	  if (!lineptr)
 	    {
 	      errno = ENOMEM;
 	      return -1;
 	    }
-	  read_pos = *n - nchars_avail + *lineptr;
-	  assert((*lineptr + *n) == (read_pos + nchars_avail));
+	  read_pos = n - nchars_avail + lineptr;
+	  assert((lineptr + n) == (read_pos + nchars_avail));
 	}
 
       if (ferror (stream))
@@ -114,7 +124,7 @@ getstr (lineptr, n, stream, terminator, offset)
       if (c == EOF)
 	{
 	  /* Return partial line, if any.  */
-	  if (read_pos == *lineptr)
+	  if (read_pos == lineptr)
 	    return -1;
 	  else
 	    break;
@@ -130,16 +140,29 @@ getstr (lineptr, n, stream, terminator, offset)
 
   /* Done - NUL terminate and return the number of chars read.  */
   *read_pos = '\0';
-
-  ret = read_pos - (*lineptr + offset);
+  
+  // ret : not inlcude the last character '\0' 
+  ret = read_pos - (lineptr + offset);
   return ret;
 }
 
 int
-getline (lineptr, n, stream)
-     char **lineptr;
-     size_t *n;
+mygetline (lineptr, n, stream)
+     char *lineptr;
+     size_t n;
      FILE *stream;
 {
   return getstr (lineptr, n, stream, '\n', 0);
+}
+
+
+int main(){
+  
+  FILE *fp= fopen("test.txt","r");
+  //char * lineptr2=NULL;
+  char *lineptr2 = malloc(3);
+  size_t n = 0;
+  // mygetline(lineptr2,n,fp);
+  getstr(lineptr2,n,fp,'\n',0);
+  printf("lineptr2 is : %s", lineptr2);
 }
