@@ -28,6 +28,7 @@ int main(){
   printf("The strlen of char array string : %zu.\n", strlen(char_arr));
   printf("\n");
 
+  // the strlen or sizeof char array when overflowing
   char strcpy1[3]="12";
   strcpy(strcpy1, "hello world!");
   printf("// when char array overflow : \n");
@@ -42,7 +43,8 @@ int main(){
 
   char *ptr = string;
   printf("The sizeof pointer ptr : %zu.\n", sizeof(ptr));         // pointer length is 8
-  printf("The strlen of pointer ptr : %zu.\n", strlen(ptr));
+  printf("The strlen of pointer ptr : %zu.\n", strlen(ptr));      // 12
+  printf("\n");
 
   // applied to the name of a static array.The result will be the bytes of the 
   // whole array
@@ -51,7 +53,6 @@ int main(){
   };
   printf("The sizeof of char * array %zu.\n",
          sizeof(char_pointer_arr1));    // 24. because the element is a pointer
-  printf("\n");
   
   // be used to calculate the number of elements in array.
   printf("Number of elements in char * array %zu.\n",
