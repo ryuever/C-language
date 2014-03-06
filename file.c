@@ -4,7 +4,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include <errno.h>
-
+#include <readline/readline.h>
+#include <readline/history.h>
 
 int main(){
 //==============================================================================
@@ -192,6 +193,41 @@ int main(){
   printf("\n");
 
 //===============================================================================
+// readline - get a line from terminal
+// run with $ gcc -g file.c -lreadline   or it will signal error 
+// "undefined reference to `readline'"
+//===============================================================================
+  char *line_stin ;
+  line_stin= readline("Enter a line : ");
+  printf("The read line is %s",line_stin);
+
+  free(line_stin);
+
+  char* input, shell_prompt[100];
+ 
+  // Configure readline to auto-complete paths when the tab key is hit.
+  rl_bind_key('\t', rl_complete);
+  
+  for(;;) {
+    // Create prompt string from user name and current working directory.
+    snprintf(shell_prompt, sizeof(shell_prompt), "%s:%s $ ", getenv("USER"), getcwd(NULL, 1024));
+    
+    // Display prompt and read input (n.b. input must be freed after use)...
+    input = readline(shell_prompt);
+    
+    // Check for EOF.
+    if (!input)
+      break;
+    
+    // Add input to history.
+    add_history(input);
+    
+    // Do stuff...
+    
+    // Free input.
+    free(input);
+  }
+//===============================================================================
 // fputc, fputs, putc, putchar, puts - output of characters and strings
 //===============================================================================
   FILE *out_file = fopen("out_file.txt","w");
@@ -243,6 +279,24 @@ int main(){
 
   fclose(pos_file2);
   printf("\n");
+
+//===============================================================================
+// malloc, free, calloc, realloc - allocate and free dynamic memory  
+//===============================================================================
+  int * buffer1, * buffer2, * buffer3;
+  /* buffer1 = (int*) malloc (100*sizeof(int)); */
+  /* buffer2 = (int*) calloc (100,sizeof(int)); */
+  /* buffer3 = (int*) realloc (buffer2,500*sizeof(int)); */
+  buffer1 = malloc (100*sizeof(int));
+  buffer2 = calloc (100,sizeof(int));
+  buffer3 = realloc (buffer2,500*sizeof(int));
+
+  // In gdb compare buffer1 to buffer5, buffer1 still point to the original position.
+  // However buffer5 is 0x00 pointing to nothing.
+  char *buffer4;
+  char *buffer5 = NULL;
+  free (buffer1);
+  free (buffer3);
 
 //===============================================================================
 //                             The End
