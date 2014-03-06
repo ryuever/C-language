@@ -1,4 +1,4 @@
-//=============================================== file = struct_union.c =========
+//=============================================== file = pointer.c ==============
 //=  A tutorial program of C pointer                                            =
 //===============================================================================
 //=  Notes:                                                                     =
@@ -209,6 +209,14 @@ int main(){
   /* const_func1 = const_func_02;   // assignment of read-only variable 'const_func1' */
   
   printf("\n"); 
+
+  printf("==================================================================\n");
+  printf("char * and char ** ");
+  printf("==================================================================\n");
+  char **test;
+  char *test2 ="hello";
+  test = &test2;
+  printf("the address of test2 is %s\n",*test);
 
   return 0;
 }
