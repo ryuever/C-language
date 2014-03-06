@@ -8,70 +8,58 @@ int main(){
     "Liu", "Li" , "Du"
   };
 
-  //  str1 = name[1];
-  char *str   = name[1];         // name[i] is a pointer
+  char *str = name[1];         // name[i] is a pointer
   printf("str : %s \n", str);
   printf("The size of name[i] is %zu.\n", sizeof(name[1]));
 
   if(str1 == str2){
-    printf("== operator will be the comparison of value \n");
+    printf("== operator compare string value.\n");
   } else {
-    printf("== operator will be the comparison of address \n");          // right
+    printf("== operator compare string address.\n");  // right
   }
 
   if(strcmp(str1,str2) == 0){
-    printf("function strcmp is for the comparison of string value \n");   // right
+    printf("strcmp compare string value \n");   // right
   } else {
-    printf("function strcmp is for the comparison of string address \n");
+    printf("strcmp compare string address \n");
   }
   
   // compare char * with a char array. It's ok.
   if(strcmp(str,"Li") == 0){
-    printf("strcmp can be used for the comparison between char * and char array.\n");
+    printf("strcmp : can compare char * to char array.\n");
   } else {
-    printf("strcmp can't be used for the comparison between char * and char array.\n");
+    printf("strcmp : can't compare char * to char array.\n");
   }
 
-  // the format should be %d when you want to output an character instead of string.
-  printf("Print out the decimal %d value of char %c.\n\n", str1[1],str1[1]);
-  // printf("%s\n", str1[1]);  %s expects argument of type char* but argument have type of int.
-
-//==============================================================================
-//                     The length of char * and char array
-//==============================================================================
-  char *p = "hello";
-  char q[] = "hello";         // The null terminator will be included as well.
+  printf("==================================================================\n");
+  printf("output string or character.\n");
+  printf("==================================================================\n");
+  printf("decimal %d value of char %c\n", str1[1],str1[1]);
+  printf("char array str1 : %s\n",str1);
+  printf("char pointer str point to : %s\n",str);
+  printf("\n");
   
-  printf("The usage of function sizeof and strlen : \n");
-  printf("%zu\n", sizeof(p)); // => 8. size of pointer to char -- 4 on x86, 8 on x86-64
-  printf("%zu\n", sizeof(q)); // => 6. size of char array in memory -- 6 on both
-
-  // size_t strlen(const char *s) and we don't get any warnings here:
-  printf("%zu\n", strlen(p)); // => 5
-  printf("%zu\n\n", strlen(q)); // => 5
-
-//==============================================================================
-//                     assign a value to char array
-//==============================================================================
-  // 1. initial a char array with a string
+  printf("==================================================================\n");
+  printf("initial a char array with a string\n");
+  printf("==================================================================\n");
   char init_arr[4] ="name";
-  printf("The value of char array init_arr is %s.\n", init_arr);
+  printf("char array init_arr (%s) is overflow.\n", init_arr);
 
   char init_str1[4] = "book";
   char init_str2[4] = {'l','i','k' };
-
-  printf("Two ways to initial a char array %s and %s.\n", 
-         init_str1,init_str2);     // book & lik
+  printf("Two ways to initial a char array %s and %s.\n", init_str1,init_str2);  
+  printf("\n");
   
-  // 2. The assignment of char array : strcpy function or for loop. 
+  printf("==================================================================\n");
+  printf("Assignment : strcpy function or for loop\n");
+  printf("==================================================================\n");
   char assign_arr1[4];
   char assign_arr2[4];
   strcpy(assign_arr1,init_str1);    // initial with other char array
   strcpy(assign_arr2,"face");       // initial with a string
-  printf("assigned char array %s through strcpy function with other char array.\n", 
-         assign_arr1);   // book
-  printf("assigned char array %s through strcpy function with a string.\n", 
-         assign_arr2);           // face
+  printf("strcpy to char array : %s\n", assign_arr1);   // book
+  printf("strcpy to char array : %s\n", assign_arr2);   // face
+  printf("\n");
 
   char assign_arr3[4];
   long unsigned i;
@@ -79,11 +67,12 @@ int main(){
   for(i = 0; i< sizeof(assign_arr3);i++){
     assign_arr3[i] = 'm';           // assign a char to char array one by one. 
   }
-  printf("assigned char array %s through for loop.\n\n",assign_arr3);      // mmmm
+  printf("assigned char array %s through for loop.\n",assign_arr3);
+  printf("\n");
 
-//==============================================================================
-//                    declarate and define the array of char pointer 
-//==============================================================================
+  printf("==================================================================\n");
+  printf("declarate and define the array of char pointer\n");
+  printf("==================================================================\n");
   char *char_pointer_arr1[] = {
     "Liu", "Li" , "Du"
   };
@@ -97,27 +86,29 @@ int main(){
   }
   printf("\n");
 
-//==============================================================================
-//                  assignment to char pointer
-//==============================================================================  
+  printf("==================================================================\n");
+  printf("assignment to char pointer\n");
+  printf("==================================================================\n");
   char * c = "hello";
   char c2 = 'a';
   char *c3 = &c2;
   printf("c is : %s\n",c);
   printf("c3 is :%c\n",*c3);
   printf("c[1] is :%c\n",*c);
+  printf("\n");
 
-//==============================================================================
-//                  Convert int to string
-//==============================================================================  
+  printf("==================================================================\n");
+  printf("Convert int to string\n");
+  printf("==================================================================\n");
   int aInt = 368;
   char str4[15]="\0";
   sprintf(str4, "%d", aInt);
   printf("convert int aInt to string : %s\n",str4);
+  printf("\n");
 
-//==============================================================================
-//                  Convert string to int
-//==============================================================================  
+  printf("==================================================================\n");
+  printf("Convert string to int\n");
+  printf("==================================================================\n");
   //  char * s2i = "\xff\xff\xff\xfe";
   char * s2i = "\x2D\x31\x32\x33\x34";
   int signed_i = atoi(s2i);
@@ -128,10 +119,11 @@ int main(){
   int signed_i2 = atoi(s2i);
   printf("s2i2 is : %s\n", s2i2);          // 1234
   printf("signed_i2 is : %d\n", signed_i2);
+  printf("\n");
 
-//==============================================================================
-//                  compare signed char to unsigned char
-//==============================================================================  
+  printf("==================================================================\n");
+  printf("compare signed char to unsigned char\n");
+  printf("==================================================================\n");
   signed char c4 = 0x31;
   printf("The length of signed char c4 is %zu\n",sizeof(c4));
   unsigned char c5 = 0x31;
@@ -146,13 +138,17 @@ int main(){
     printf("signed char c6(%x) is equal to unsigned char c7(%x)\n", c6,c7);
   else 
     printf("signed char c6(%x -> %d) is not equal to unsigned char c7(%x ->%d)\n", c6,c6,c7,c7);
+  printf("\n");
 
-//==============================================================================
-//              extend char to int 
+//==============================================================================         
+//        extending char to int
 // unsigned char --> int : 0xff --> 0x000000ff
 // signed char   --> int : oxff --> 0xffffffff
 // check the bit value through gdb command
 //==============================================================================
+  printf("==================================================================\n");
+  printf(" extend char to int \n");
+  printf("==================================================================\n");
 
   unsigned char c8 = 0xFF;
   signed char c9 = 0xFF;
@@ -163,6 +159,7 @@ int main(){
   int t2 = c9;
   printf("Decimal and Hex format of unsigned char t1 is %d, %x.\n",t1,t1);
   printf("Decimal and Hex format of signed char t2 is %d, %x.\n",t2,t2);
+  printf("\n");
 
 //==============================================================================
 //                       The end
