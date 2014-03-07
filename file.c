@@ -138,6 +138,7 @@ int main(){
   in_c = getc(in_fp);
   printf("in_c through getc function : %d\n",in_c);
 
+  printf("please enter a character : ");
   in_c = getchar();
   printf("in_c from stdin : %d\n",in_c);
 
@@ -281,6 +282,20 @@ int main(){
   printf("\n");
 
 //===============================================================================
+// perror - print a system error message
+//===============================================================================
+  FILE * errpf;
+  errpf=fopen ("unexist.ent","rb");
+  if (errpf==NULL){
+    printf("errno is %d\n",errno);
+    perror ("The following error occurred");
+  }
+  else
+    fclose (errpf);
+
+  printf("\n");
+
+//===============================================================================
 // malloc, free, calloc, realloc - allocate and free dynamic memory  
 //===============================================================================
   int * buffer1, * buffer2, * buffer3;
@@ -290,7 +305,7 @@ int main(){
   buffer1 = malloc (100*sizeof(int));
   buffer2 = calloc (100,sizeof(int));
   buffer3 = realloc (buffer2,500*sizeof(int));
-
+  
   // In gdb compare buffer1 to buffer5, buffer1 still point to the original position.
   // However buffer5 is 0x00 pointing to nothing.
   char *buffer4;
