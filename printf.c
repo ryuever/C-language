@@ -73,5 +73,23 @@ int main(){
   printf("The binary format of %d is %s\n", 5, byte_to_binary(5));
   printf("\n");
 
+//==============================================================================
+// printf, fprintf, sprintf, snprintf, vprintf, vfprintf, vsprintf, vsnprintf - 
+// formatted output conversion
+//==============================================================================
+  printf("==================================================================\n");
+  printf("The usage of sprintf\n");
+  printf("==================================================================\n");
+  int sp_int = 14,rdchar;
+  char str[20];
+  rdchar = sprintf(str, "hex of sp_int : %#x", sp_int);
+  printf("The read number of characters : %d\n",rdchar);
+  printf("%s\n",str);
+  if(rdchar > 19)
+    printf("string is truncated to buffer str\n");
+  else
+    printf("string is read successfully\n");
+  printf("hex of sp_int : %#x\n", 691212);
+
   return 0;
 }
