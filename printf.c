@@ -12,8 +12,7 @@ const char *byte_to_binary(int x){
     return b;
 }
 
-int main(){
-      
+int main(){      
   printf("==================================================================\n");
   printf("The usage of flag options : \n");
   printf("==================================================================\n");
@@ -71,6 +70,20 @@ int main(){
   
   // print in binary format
   printf("The binary format of %d is %s\n", 5, byte_to_binary(5));
+  printf("\n");
+
+  unsigned long long a = 422342423424;
+  printf("length of llu type    : %zu\n", sizeof(a));
+  printf("unsignend long long a : %llu\n",a);
+
+  long long b = 422342423424;
+  printf("length of lld type    : %zu\n", sizeof(b));
+  printf("unsignend long long b : %lld\n",b);
+
+  long c = 422342423424;
+  printf("length of long type   : %zu\n", sizeof(c));
+  printf("long c                : %ld\n",c);
+
   printf("\n");
 
 //==============================================================================
