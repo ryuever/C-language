@@ -147,7 +147,7 @@ int main(){
 // check the bit value through gdb command
 //==============================================================================
   printf("==================================================================\n");
-  printf(" extend char to int \n");
+  printf("extend char to int \n");
   printf("==================================================================\n");
 
   unsigned char c8 = 0xFF;
@@ -161,6 +161,18 @@ int main(){
   printf("Decimal and Hex format of signed char t2 is %d, %x.\n",t2,t2);
   printf("\n");
 
+  printf("==================================================================\n");
+  printf("address to integer\n");
+  printf("==================================================================\n");
+  int temp = 3;
+  unsigned long addr2int = (unsigned long)&temp;
+  printf("addr2int(%p) : %zu\n",&temp,addr2int);
+
+  unsigned long addr2int2 = 0x7fff1ef19b30;
+  printf("addr2int     : %zu\n",addr2int2);
+
+  printf("\n");
+  
 //==============================================================================
 //                       The end
 //==============================================================================  
