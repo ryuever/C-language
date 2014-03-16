@@ -83,6 +83,11 @@ int main(){
   long c = 422342423424;
   printf("length of long type   : %zu\n", sizeof(c));
   printf("long c                : %ld\n",c);
+  printf("\n");
+
+  // p for pointer address  
+  float ptr[4] = { 1.0, 2.0, 3.0, 4.0 };
+  printf("%p %p %p %p\n", &ptr[0], &ptr[1], &ptr[2], &ptr[3]);
 
   printf("\n");
 
