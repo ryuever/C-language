@@ -50,5 +50,14 @@ int main(){
   cmpd1 |= 3;
   printf("      cmpd1 = %d.\n",cmpd1);
 
+  printf("==================================================================\n");
+  printf("Arithmetic operator \n");
+  printf("==================================================================\n");
+  int mod1 = 3;
+  int mod2 = 7;
+  printf("mod value (%d %% %d) : %d\n",mod2,mod1,mod2 % mod1);
+  printf("\n");
+  
+  
   return 0;
 }
