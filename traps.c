@@ -26,6 +26,7 @@ int foo(char **x){
   *x = malloc(4);
   memset(*x,'a',3);
   (*x)[3] = '\0';
+  return 0;
 }
 
 int main()
