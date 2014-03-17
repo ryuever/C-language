@@ -7,16 +7,30 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
+#ifndef FD_SETSIZE
+#define FD_SETSIZE 64
+#endif
+
+typedef struct fd_set22 {
+  unsigned int count;
+  int fd[FD_SETSIZE];
+} fd_set22;
+
+void myfd_set(int fd, fd_set22 *set) {
+  if (set->count < FD_SETSIZE) set->fd[set->count++] = fd;
+}
+
 int main(){
 //==============================================================================
 //                  how to open and read a file
 // int open(const char* path, int oflags, mode_t mode);
 // ssize_t read(int fd, void *buf, size_t count);
 //==============================================================================
-  int filedesc = open("test.txt",O_RDWR);
+  int filedesc = open("test.txt",O_CREAT | O_RDWR, S_IRUSR | S_IWUSR );
+  //  int filedesc = open("test.txt",O_RDWR);
   printf("file descriptor : %d\n",filedesc);
-  if(filedesc < 0)                  // if return value is negative, exit.
-    return 1;
+  /* if(filedesc < 0)                  // if return value is negative, exit. */
+  /*   perror("no file"); */
   
   if(write(filedesc, "This will be output to test.txt\nI am lily. nice to meet you!\n",61) != 61){
     write(2,"There was an error writing to test.txt\n",39);   // file descriptor 2 is stand error
@@ -59,7 +73,7 @@ int main(){
 // EOF = -1. It doesn't exist in file. In other word, it don't occupy byte in 
 // file.
 //==============================================================================
-  int filedesc4 = open("test2.txt",O_RDWR | O_CREAT);
+  int filedesc4 = open("test2.txt",O_RDWR | O_CREAT, S_IRUSR |S_IWUSR);
   write(filedesc4, "",10);
   char str[20];
   
@@ -308,11 +322,28 @@ int main(){
   
   // In gdb compare buffer1 to buffer5, buffer1 still point to the original position.
   // However buffer5 is 0x00 pointing to nothing.
-  char *buffer4;
+  //  char *buffer4;
   char *buffer5 = NULL;
   free (buffer1);
   free (buffer3);
 
+//===============================================================================
+// select,  pselect,  FD_CLR,  FD_ISSET, FD_SET, FD_ZERO - synchronous 
+// I/O multiplexing
+//===============================================================================
+  FILE *mul_fp = fopen("test.txt","r");
+  fd_set rset;
+  printf("file descriptor for mul_fp is %d\n",fileno(mul_fp));
+  FD_ZERO(&rset);
+  FD_SET(fileno(mul_fp), &rset);
+  FD_SET(13, &rset);
+  FD_SET(33, &rset);
+  
+  
+
+
+  
+  
 //===============================================================================
 //                             The End
 //===============================================================================
