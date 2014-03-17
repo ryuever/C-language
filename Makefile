@@ -1,6 +1,6 @@
 PROGS = switchTest calSize function pointer charPointerCharArray IfBreak cSpecial macro \
 printf traps enumTest myGetline scopeBlockScope operator structUnion
-CFLAGS = -g 
+CFLAGS = -g -Wall
 
 all: $(PROGS) file
 
