@@ -21,11 +21,14 @@ void myfd_set(int fd, fd_set22 *set) {
 }
 
 int main(){
-//==============================================================================
-//                  how to open and read a file
-// int open(const char* path, int oflags, mode_t mode);
-// ssize_t read(int fd, void *buf, size_t count);
-//==============================================================================
+  //==============================================================================
+  //                  how to open and read a file
+  // int open(const char* path, int oflags, mode_t mode);
+  // ssize_t read(int fd, void *buf, size_t count);
+  //==============================================================================
+  printf("==================================================================\n");
+  printf("open and read a file\n");
+  printf("==================================================================\n");
   int filedesc = open("test.txt",O_CREAT | O_RDWR, S_IRUSR | S_IWUSR );
   //  int filedesc = open("test.txt",O_RDWR);
   printf("file descriptor : %d\n",filedesc);
@@ -67,12 +70,16 @@ int main(){
   }
   printf("buf2 is : %s",buf2); 
   printf("nread2 is : %d\n",nread2);
+  printf("\n");
 
-//==============================================================================
-//                    EOF : End of FIle 
-// EOF = -1. It doesn't exist in file. In other word, it don't occupy byte in 
-// file.
-//==============================================================================
+  //==============================================================================
+  //                    EOF : End of FIle 
+  // EOF = -1. It doesn't exist in file. In other word, it don't occupy byte in 
+  // file.
+  //==============================================================================
+  printf("==================================================================\n");
+  printf("End of file\n");
+  printf("==================================================================\n");
   int filedesc4 = open("test2.txt",O_RDWR | O_CREAT, S_IRUSR |S_IWUSR);
   write(filedesc4, "",10);
   char str[20];
@@ -83,9 +90,14 @@ int main(){
   printf("nread4 is : %d\n",nread4);    // nread4 = 0.no char is read. 
   
   printf("EOF is %x.\n" ,EOF);  
-//===============================================================================
-// if file not existing. The pointer to file will be Null
-//===============================================================================
+  printf("\n");
+
+  //===============================================================================
+  // if file not existing. The pointer to file will be Null
+  //===============================================================================
+  printf("==================================================================\n");
+  printf("verify an existing file\n");
+  printf("==================================================================\n");
   FILE * fp;
   int c;           // must be declared to integer to receive fgetc(fp)
   if((fp = fopen("test.txt","rb")) == NULL){
@@ -96,11 +108,37 @@ int main(){
     perror("reach the end of file.\n");
   }
   fclose(fp);
-//===============================================================================
-//                              EOF trap
-// $  gcc -g -fsigned-char file.c      // stop at the third char oxff
-// $  gcc -g -funsigned-char file.c    // go into loop
-//===============================================================================
+  printf("\n");
+
+  printf("==================================================================\n");
+  printf("fopen : FILE *fopen(const char *filename, const char *mode);\n");
+  printf("==================================================================\n");
+  // file not exist, then create
+  FILE *fp_no_exist = fopen("fdNotExist.txt","w");
+  fputs("Hello worlds",fp_no_exist);
+  fclose(fp_no_exist);
+
+  FILE *fp_already_exist = fopen("fdNotExist.txt","w+");
+  char fp_str[20];
+  if(fp_already_exist == NULL)
+    perror("file error");
+  fputs("second",fp_already_exist);
+  long pos = ftell(fp_already_exist);
+  printf("file pos is : %zu\n",pos);
+  rewind(fp_already_exist);
+  fgets(fp_str, 19,fp_already_exist);
+  printf("reading string from fp : %s\n", fp_str);
+  fclose(fp_already_exist);
+  printf("\n");
+
+  //===============================================================================
+  //                              EOF trap
+  // $  gcc -g -fsigned-char file.c      // stop at the third char oxff
+  // $  gcc -g -funsigned-char file.c    // go into loop
+  //===============================================================================
+  printf("==================================================================\n");
+  printf("EOF trap \n");
+  printf("==================================================================\n");
   FILE *fp2 = fopen("test.txt","r+");
   fputs("\x35\x38\xff\x32\x33",fp);
   fclose(fp2);
@@ -110,14 +148,17 @@ int main(){
   while ((c3 = fgetc(fp3)) != EOF){
     printf ("read c2 = '%c'\n", c);
   }
-  printf("\n");
   fclose(fp);
+  printf("\n");
 
-//===============================================================================
-//                         int feof ( FILE * stream ); 
-// Check end-of-file indicator : Checks whether the end-of-File indicator 
-// associated with stream is set, returning a value different from zero if it is.
-//===============================================================================
+  //===============================================================================
+  //                         int feof ( FILE * stream ); 
+  // Check end-of-file indicator : Checks whether the end-of-File indicator 
+  // associated with stream is set, returning a value different from zero if it is.
+  //===============================================================================
+  printf("==================================================================\n");
+  printf("int feof ( FILE * stream ); \n");
+  printf("==================================================================\n");
   FILE * pFile;
   int n = 0;
   pFile = fopen("myfile.txt","a+");
@@ -136,9 +177,9 @@ int main(){
   }
   printf("\n");
 
-//===============================================================================
-// fgetc,  fgets,  getc,  getchar,  gets, ungetc - input of characters and strings
-//===============================================================================
+  printf("==================================================================\n");
+  printf("fgetc,  fgets,  getc,  getchar,  gets, ungetc - input of characters and strings\n");
+  printf("==================================================================\n");
   FILE * in_fp = fopen("test.txt","r");
   
   int in_c;
@@ -163,9 +204,9 @@ int main(){
   fclose(in_fp);
   printf("\n");
 
-//===============================================================================
-//               getline, getdelim - delimited string input
-//===============================================================================
+  printf("==================================================================\n");
+  printf("getline, getdelim --delimited string input\n");
+  printf("==================================================================\n");
   FILE *getline_fp;
   char *line = NULL;
   size_t len = 0;
@@ -207,11 +248,9 @@ int main(){
   free(line2);
   printf("\n");
 
-//===============================================================================
-// readline - get a line from terminal
-// run with $ gcc -g file.c -lreadline   or it will signal error 
-// "undefined reference to `readline'"
-//===============================================================================
+  printf("==================================================================\n");
+  printf("readline - get a line from terminal\n");
+  printf("==================================================================\n");
   char *line_stin ;
   line_stin= readline("Enter a line : ");
   printf("The read line is %s",line_stin);
@@ -237,14 +276,15 @@ int main(){
     // Add input to history.
     add_history(input);
     
-    // Do stuff...
-    
+    // Do stuff...    
     // Free input.
     free(input);
   }
-//===============================================================================
-// fputc, fputs, putc, putchar, puts - output of characters and strings
-//===============================================================================
+  printf("\n");
+
+  printf("==================================================================\n");
+  printf("fputc, fputs, putc, putchar, puts - output of characters and strings\n");
+  printf("==================================================================\n");
   FILE *out_file = fopen("out_file.txt","w");
   fputc(0x34,out_file);
   
@@ -260,10 +300,11 @@ int main(){
   putchar(0x0a);
 
   puts("function puts(), automatically, appending a newline character.");
-  printf("\n");
-//===============================================================================
-//       fgetpos, fseek, fsetpos, ftell, rewind - reposition a stream
-//===============================================================================
+  printf("\n\n");
+
+  printf("==================================================================\n");
+  printf("fgetpos, fseek, fsetpos, ftell, rewind - reposition a stream\n");
+  printf("==================================================================\n");
   FILE *pos_file = fopen("pos_file.txt","w");
   fputs("hello world.",pos_file);
   
@@ -295,9 +336,9 @@ int main(){
   fclose(pos_file2);
   printf("\n");
 
-//===============================================================================
-// perror - print a system error message
-//===============================================================================
+  printf("==================================================================\n");
+  printf("perror - print a system error message\n");
+  printf("==================================================================\n");
   FILE * errpf;
   errpf=fopen ("unexist.ent","rb");
   if (errpf==NULL){
@@ -306,12 +347,11 @@ int main(){
   }
   else
     fclose (errpf);
-
   printf("\n");
 
-//===============================================================================
-// malloc, free, calloc, realloc - allocate and free dynamic memory  
-//===============================================================================
+  printf("==================================================================\n");
+  printf("malloc, free, calloc, realloc - allocate and free dynamic memory\n");
+  printf("==================================================================\n");
   int * buffer1, * buffer2, * buffer3;
   /* buffer1 = (int*) malloc (100*sizeof(int)); */
   /* buffer2 = (int*) calloc (100,sizeof(int)); */
@@ -326,11 +366,15 @@ int main(){
   char *buffer5 = NULL;
   free (buffer1);
   free (buffer3);
+  printf("\n");
 
-//===============================================================================
-// select,  pselect,  FD_CLR,  FD_ISSET, FD_SET, FD_ZERO - synchronous 
-// I/O multiplexing
-//===============================================================================
+  //===============================================================================
+  // select,  pselect,  FD_CLR,  FD_ISSET, FD_SET, FD_ZERO - synchronous 
+  // I/O multiplexing
+  //===============================================================================
+  printf("==================================================================\n");
+  printf("I/O multiplexing\n");
+  printf("==================================================================\n");
   FILE *mul_fp = fopen("test.txt","r");
   fd_set rset;
   printf("file descriptor for mul_fp is %d\n",fileno(mul_fp));
@@ -338,11 +382,6 @@ int main(){
   FD_SET(fileno(mul_fp), &rset);
   FD_SET(13, &rset);
   FD_SET(33, &rset);
-  
-  
-
-
-  
   
 //===============================================================================
 //                             The End
