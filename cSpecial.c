@@ -1,5 +1,5 @@
 #include <stdio.h>
-
+#include <stdlib.h>
 struct my_float {
   float number;
 }  __attribute__((aligned(0x1000)));
@@ -31,6 +31,13 @@ typedef struct people_hdr2_align{
 } __attribute__((aligned)) people_hdr2_align;
 
 struct S { short f[3]; } __attribute__ ((aligned));
+
+extern void fatal ()__attribute__((noreturn));
+// extern void fatal ();
+
+void fatal (){
+  exit(1);
+}
 
 int main(void){
   printf("==================================================================\n");
@@ -80,4 +87,12 @@ int main(void){
   printf("Address of struct people_hdr2_align : %p\n", &phdr2_align);
   printf("verify %zu\n", (unsigned long)&phdr2 % sizeof(people_hdr2_align));
   printf("\n");
+
+  printf("==================================================================\n");
+  printf("declare an noreturn attribute to func, no need of return func.\n");
+  printf("==================================================================\n");
+  printf("\n");
+  fatal();
+  printf("following is not reachable\n");
 }
+
