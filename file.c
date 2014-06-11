@@ -376,13 +376,22 @@ int main(){
   printf("I/O multiplexing\n");
   printf("==================================================================\n");
   FILE *mul_fp = fopen("test.txt","r");
+  /* fd_set rset; */
+  /* printf("file descriptor for mul_fp is %d\n",fileno(mul_fp)); */
+  /* printf("file descriptor is %d\n",fileno(mul_fp)); */
+  /* FD_ZERO(&rset); */
+  /* FD_SET(fileno(mul_fp), &rset); */
+  /* FD_SET(13, &rset); */
+  /* FD_SET(33, &rset); */
+  /* printf("reset is %ul\n",rset); */
+
   fd_set rset;
-  printf("file descriptor for mul_fp is %d\n",fileno(mul_fp));
   FD_ZERO(&rset);
-  FD_SET(fileno(mul_fp), &rset);
-  FD_SET(13, &rset);
+  FD_SET(1, &rset);   // fds_bits[1] = "00000010 00000000 000000000 00000000"
+  FD_SET(4, &rset);   // fds_bits[1] = "00010010 00000000 000000000 00000000"
+  FD_SET(5, &rset);   // fds_bits[1] = "00110010 00000000 000000000 00000000"
+  FD_SET(31, &rset);  // fds_bits[1] = "00010010 00000000 000000000 10000000"
   FD_SET(33, &rset);
-  
 //===============================================================================
 //                             The End
 //===============================================================================
