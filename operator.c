@@ -41,6 +41,15 @@ int main(){
   band = x & y;
   printf("x(%d) & y(%d) = %d.\n", x,y,band);
 
+  int commaOpe,commaOpe2;
+  commaOpe = ~0,0;
+  commaOpe2 = (~0,0);
+  printf("comma operator (~0,0) return value : ox%x and ox%x\n", commaOpe,commaOpe2);
+
+  int set = 4, signo = 7;
+  set = 1 << (signo - 1);
+  printf("left bit shift : ox%x\n", set);
+
 //==============================================================================
 //                          compound assignment 'op='
 // where op can be any one of the ten operator symbols '*', '/', '%', '+', '-', 
@@ -57,7 +66,6 @@ int main(){
   int mod2 = 7;
   printf("mod value (%d %% %d) : %d\n",mod2,mod1,mod2 % mod1);
   printf("\n");
-  
   
   return 0;
 }
