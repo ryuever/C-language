@@ -1,7 +1,8 @@
-# temp file generated due to using Emacs
+# temp file generated due to using Emacs or system function invoking
 \#*
 .#*
 *~
+*.DSYM
 
 # object file
 *.o
